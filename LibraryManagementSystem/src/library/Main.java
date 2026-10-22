@@ -12,6 +12,13 @@ public class Main {
 
         Member member2 = Member.registerMember(
                 102, "John", "4169876543", 1002, 30, "Premium");
+        
+		System.out.println("Member registration successful: "
+		        + member1.getName());
+		
+		System.out.println("Member registration successful: "
+		        + member2.getName());
+
 
         System.out.println("\n=== MEMBERS ===");
         member1.displayBasicDetails();

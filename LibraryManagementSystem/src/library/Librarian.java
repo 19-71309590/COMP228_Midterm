@@ -1,3 +1,4 @@
+
 package library;
 
 import java.util.HashSet;
@@ -8,15 +9,23 @@ public class Librarian extends LibraryStaff
 
     private final int dailyIssueLimit;
     private int booksProcessed;
-
     private Set<String> reservedBooks = new HashSet<>();
 
     public Librarian(int personId, String name, String phoneNumber,
                      int staffId, String department, double monthlySalary,
                      int dailyIssueLimit, int booksProcessed) {
 
+        this(personId, name, phoneNumber, staffId, department,
+                monthlySalary, dailyIssueLimit, booksProcessed, true);
+    }
+
+    protected Librarian(int personId, String name, String phoneNumber,
+                        int staffId, String department, double monthlySalary,
+                        int dailyIssueLimit, int booksProcessed,
+                        boolean registerNow) {
+
         super(personId, name, phoneNumber,
-              staffId, department, monthlySalary);
+                staffId, department, monthlySalary);
 
         if (dailyIssueLimit < 0 || booksProcessed < 0) {
             throw new IllegalArgumentException("Invalid book counts");
@@ -25,7 +34,9 @@ public class Librarian extends LibraryStaff
         this.dailyIssueLimit = dailyIssueLimit;
         this.booksProcessed = booksProcessed;
 
-        registerCreatedStaff();
+        if (registerNow) {
+            registerCreatedStaff();
+        }
     }
 
     @Override
@@ -50,11 +61,9 @@ public class Librarian extends LibraryStaff
     public void reserveBook(String bookId) {
         if (bookId == null || bookId.isBlank()) {
             System.out.println("Reservation failed: Invalid book ID");
-        }
-        else if (reservedBooks.add(bookId)) {
+        } else if (reservedBooks.add(bookId)) {
             System.out.println("Reservation successful: " + bookId);
-        }
-        else {
+        } else {
             System.out.println("Reservation failed: Already reserved");
         }
     }

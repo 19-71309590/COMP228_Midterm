@@ -1,3 +1,4 @@
+
 package library;
 
 public class SeniorLibrarian extends Librarian {
@@ -11,11 +12,20 @@ public class SeniorLibrarian extends Librarian {
                            String specialization, double seniorityAllowance) {
 
         super(personId, name, phoneNumber,
-              staffId, department, monthlySalary,
-              dailyIssueLimit, booksProcessed);
+                staffId, department, monthlySalary,
+                dailyIssueLimit, booksProcessed, false);
+
+        if (specialization == null || specialization.isBlank()
+                || !Double.isFinite(seniorityAllowance)
+                || seniorityAllowance < 0) {
+            throw new IllegalArgumentException(
+                    "Invalid senior librarian information");
+        }
 
         this.specialization = specialization;
         this.seniorityAllowance = seniorityAllowance;
+
+        registerCreatedStaff();
     }
 
     @Override
